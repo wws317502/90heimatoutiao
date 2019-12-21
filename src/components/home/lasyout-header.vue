@@ -6,12 +6,13 @@
   </el-col>
   <el-col :span="12" class="right" >
       <el-row type="flex" justify='end' align="middle" >
-          <img  src="../../assets/img/avatar.jpg"
+          <img  :src="userInfo.photo ? userInfo.photo : defaultImg"
           alt="">
           <!-- :src="userInfo.photo ? userInfo.photo : defaultImg"  -->
+          <!-- src="../../assets/img/avatar.jpg" -->
         <el-dropdown @command="clickMenu">
         <span class="el-dropdown-link">
-            大不大 <!-- {{ userInfo.name }} -->
+            {{ userInfo.name }} <!-- {{ userInfo.name }} -->
             <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown" >
