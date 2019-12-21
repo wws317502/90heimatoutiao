@@ -74,12 +74,13 @@ export default {
             console.log(result.data.data)
             window.localStorage.setItem('user-token', result.data.token)
             this.$router.push('/home')
-          }).catch(() => {
-            this.$message({
-              message: '警告哦，错误',
-              type: 'warning'
-            })
           })
+          // .catch(() => {
+          //   this.$message({
+          //     message: '警告哦，错误',
+          //     type: 'warning'
+          //   })
+          // })
         }
       })
     }
