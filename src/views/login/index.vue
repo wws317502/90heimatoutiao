@@ -4,7 +4,7 @@
     <el-card class='login-card'>
       <!-- 放置标题图片 -->
       <div class='title'>
-        <img src="../assets/img/logo_index.png" alt="">
+        <img src="../../assets/img/logo_index.png" alt="">
       </div>
       <!-- 放置表单 -->
       <el-form :model="loginForm" ref="myForm" :rules="loginRules">
@@ -73,6 +73,12 @@ export default {
           }).then(result => {
             console.log(result.data.data)
             window.localStorage.setItem('user-token', result.data.data.token)
+            this.$router.push('/home')
+          }).catch(() => {
+            this.$message({
+              message: '警告哦，错误',
+              type: 'warning'
+            })
           })
         }
       })
@@ -85,7 +91,7 @@ export default {
 <style lang='less' scoped>
 .login{
     height: 100vh;
-    background: url('../assets/img/2.jpg')no-repeat;
+    background: url('../../assets/img/2.jpg')no-repeat;
     background-size: cover;
     display: flex;
     justify-content: center;
