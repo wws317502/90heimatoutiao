@@ -17,9 +17,8 @@ const routes = [
     children: [{
       path: '',
       component: home2
-
     }, {
-      path: 'comment', // 完整 相对
+      path: '/home/comment', // 完整 相对
       component: () => import('../views/comment/index.vue')
     }]
 
