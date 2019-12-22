@@ -2,7 +2,7 @@
 <!-- 外层容器 -->
   <el-container>
     <!-- 左侧边栏容器。 -->
-    <el-aside style="height:100vh;  background:#353b4e; width:230px">
+    <el-aside style="min-height:100vh;  background:#353b4e; width:230px">
       <layoutAside></layoutAside>
     </el-aside>
     <el-container>
