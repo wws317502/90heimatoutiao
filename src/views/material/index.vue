@@ -11,7 +11,7 @@
             <el-card class="img-card" v-for="item in list" :key="item.id">
               <img :src="item.url" alt="">
               <el-row class="operate" type="flex" justify='space-around'>
-                <i class="el-icon-star-on"></i>
+                <i @click="collectOrCancel(item)" class="el-icon-star-on" :style="{color:item.is_collected?'red':'#000'}"></i>
                 <i class="el-icon-delete-solid"></i>
               </el-row>
             </el-card>
@@ -55,6 +55,17 @@ export default {
     }
   },
   methods: {
+    collectOrCancel (item) {
+      this.$axios({
+        method: 'put',
+        url: `/user/images/${item.id}`,
+        data: {
+          collect: !item.is_collected
+        }
+      }).then(result => {
+        this.getMaterial()
+      })
+    },
     changepage (newPage) {
       this.page.currentPage = newPage
       this.getMaterial()
