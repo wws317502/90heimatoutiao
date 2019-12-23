@@ -12,7 +12,7 @@
               <img :src="item.url" alt="">
               <el-row class="operate" type="flex" justify='space-around'>
                 <i @click="collectOrCancel(item)" class="el-icon-star-on" :style="{color:item.is_collected?'red':'#000'}"></i>
-                <i class="el-icon-delete-solid"></i>
+                <i @click='delMaterial(item.id)' class="el-icon-delete-solid"></i>
               </el-row>
             </el-card>
           </div>
@@ -55,6 +55,16 @@ export default {
     }
   },
   methods: {
+    delMaterial (id) {
+      this.$confirm('你确定要删除吗？').then(() => {
+        this.$axios({
+          url: `/user/images/${id}`,
+          method: 'delete'
+        }).then(() => {
+          this.getMaterial()
+        })
+      })
+    },
     collectOrCancel (item) {
       this.$axios({
         method: 'put',
