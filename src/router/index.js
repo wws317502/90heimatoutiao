@@ -20,6 +20,9 @@ const routes = [
     }, {
       path: '/home/comment', // 完整 相对
       component: () => import('../views/comment/index.vue')
+    }, {
+      path: 'material', // 完整 相对
+      component: () => import('../views/material/index.vue')
     }]
 
   }, {
