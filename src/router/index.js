@@ -23,6 +23,9 @@ const routes = [
     }, {
       path: 'material', // 完整 相对
       component: () => import('../views/material/index.vue')
+    }, {
+      path: 'articles', // 完整 相对
+      component: () => import('../views/articles/index.vue')
     }]
 
   }, {
