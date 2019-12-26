@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card class="articles">
       <bread-crumb slot="header">
       <template slot="title">
           内容列表
@@ -38,8 +38,28 @@
             </el-date-picker>
         </div>
       </el-form-item>
-
       </el-form>
+      <el-row class="total" type='flex' align='middle'>
+          <span>
+              共找到62315条符合条件的内容
+          </span>
+      </el-row>
+      <div class="articles-item" v-for="item in 100" :key="item.id">
+              <div class="left">
+                  <img src="../../assets/img/00.jpg" alt="">
+                  <div class="info">
+                      <span> 1545645</span>
+                      <el-tag class="tag">标签</el-tag>
+                      <span class="date">2019-12-26 13:43:44</span>
+                  </div>
+              </div>
+              <div class="right">
+                  <span><i class="el-icon-edit"></i>修改</span>
+                  <span><i class="el-icon-delete"></i>删除</span>
+
+              </div>
+
+          </div>
   </el-card>
 </template>
 
@@ -71,6 +91,49 @@ export default {
 }
 </script>
 
-<style>
+<style lang='less' scoped>
+.articles{
+    .total{
+        height: 60px;
+        border-bottom: 1px dashed #cccccc;
+    }
+    .articles-item{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+        border-bottom: 1px solid #f2f3f5;
+        .left{
+            display: flex;
+            img{
+                width: 180px;
+                height: 100px;
+                border-radius: 4px;
+            }
+            .info{
+                height: 100px;
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                .date{
+                    color: #999;
+                    font-size: 12px;
+                }
+                .tag{
+                    text-align: center;
+                    width: 60px;
+                }
+
+            }
+        }
+        .right{
+            span{
+                font-size: 14px;
+                margin-right: 8px;
+                cursor: pointer;
+            }
+        }
+    }
+}
 
 </style>
