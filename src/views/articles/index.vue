@@ -44,13 +44,13 @@
               共找到62315条符合条件的内容
           </span>
       </el-row>
-      <div class="articles-item" v-for="item in 100" :key="item.id">
+      <div class="articles-item" v-for="item in list" :key="item.id.toString()">
               <div class="left">
-                  <img src="../../assets/img/00.jpg" alt="">
+                  <img :src="item.cover.images.length?item.cover.images[0]:defaultImg" alt="">
                   <div class="info">
-                      <span> 1545645</span>
-                      <el-tag class="tag">标签</el-tag>
-                      <span class="date">2019-12-26 13:43:44</span>
+                      <span> {{item.title}}</span>
+                      <el-tag :type='item.status | filterType' class="tag">{{item.status | filterStatus}}</el-tag>
+                      <span class="date">{{item.pubdate}}</span>
                   </div>
               </div>
               <div class="right">
@@ -72,10 +72,54 @@ export default {
         channel_id: null,
         dataRange: []
       },
-      channels: []
+      channels: [],
+      list: [],
+      defaultImg: require('../../assets/img/00.jpg')
     }
   },
+  filters: {
+    filterStatus (value) {
+      //   switch(value){
+      //       case value:
+      //   }
+      switch (value) {
+        case 0:
+          return '草稿'
+        case 1:
+          return '待审核'
+        case 2:
+          return '已发表'
+        case 3:
+          return '审核失败'
+        default:
+          break
+      }
+    },
+    filterType (value) {
+      switch (value) {
+        case 0:
+          return 'warning'
+        case 1:
+          return 'info'
+        case 2:
+          return ''
+        case 3:
+          return 'danger'
+        default:
+          break
+      }
+    }
+
+  },
+
   methods: {
+    getArticles () {
+      this.$axios({
+        url: '/articles'
+      }).then(result => {
+        this.list = result.data.results
+      })
+    },
     getChannels () {
       this.$axios({
         url: '/channels'
@@ -86,6 +130,7 @@ export default {
   },
   created () {
     this.getChannels()
+    this.getArticles()
   }
 
 }
