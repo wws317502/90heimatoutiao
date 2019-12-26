@@ -26,6 +26,9 @@ const routes = [
     }, {
       path: 'articles', // 完整 相对
       component: () => import('../views/articles/index.vue')
+    }, {
+      path: 'publish', // 完整 相对
+      component: () => import('../views/publish/index.vue')
     }]
 
   }, {
