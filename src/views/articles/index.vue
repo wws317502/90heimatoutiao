@@ -42,7 +42,7 @@
       </el-form>
       <el-row class="total" type='flex' align='middle'>
           <span>
-              共找到62315条符合条件的内容
+              共找到{{page.total}}条符合条件的内容
           </span>
       </el-row>
       <div class="articles-item" v-for="item in list" :key="item.id.toString()">
@@ -147,6 +147,7 @@ export default {
             type: 'success',
             message: '删除成功'
           })
+          this.getConditionArticles()
         })
       })
     },
