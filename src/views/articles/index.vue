@@ -18,7 +18,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label='频道列表:' >
-           <el-select v-model="statusForm.channel_id" placeholder="请选择频道">
+           <el-select v-model="statusForm.channel_id" placeholder="请选择频道" >
                 <el-option
                 v-for="item in channels"
                 :key="item.id"
@@ -30,7 +30,8 @@
       <el-form-item label='时间选择:'>
         <div class="block">
             <el-date-picker
-            v-model="statusForm.dataRange"
+            v-model="statusForm.dateRange"
+            value-format="yyyy-MM-dd"
             type="daterange"
             range-separator="-"
             start-placeholder="开始日期"
@@ -70,12 +71,21 @@ export default {
       statusForm: {
         status: 5,
         channel_id: null,
-        dataRange: []
+        dateRange: []
       },
       channels: [],
       list: [],
       defaultImg: require('../../assets/img/00.jpg')
     }
+  },
+  watch: {
+    statusForm: {
+      handler: function () {
+        this.changeCondition()
+      },
+      deep: true
+    }
+
   },
   filters: {
     filterStatus (value) {
@@ -113,9 +123,19 @@ export default {
   },
 
   methods: {
-    getArticles () {
+    changeCondition () {
+      let params = {
+        status: this.statusForm.status === 5 ? null : this.statusForm.status,
+        channel_id: this.statusForm.channel_id,
+        begin_pubdate: this.statusForm.dateRange.length ? this.statusForm.dateRange[0] : null,
+        end_pubdate: this.statusForm.dateRange.length > 1 ? this.statusForm.dateRange[1] : null
+      }
+      this.getArticles(params)
+    },
+    getArticles (params) {
       this.$axios({
-        url: '/articles'
+        url: '/articles',
+        params
       }).then(result => {
         this.list = result.data.results
       })
