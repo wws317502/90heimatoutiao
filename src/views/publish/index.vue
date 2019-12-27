@@ -104,10 +104,10 @@ export default {
     publishArticle (draft) {
       this.$refs.publishForm.validate(isOK => {
         if (isOK) {
-        //   console.log('效验通过')
+          let { articleId } = this.$route.params
           this.$axios({
-            url: '/articles',
-            method: 'post',
+            url: articleId ? `/articles/${articleId}` : '/articles',
+            method: articleId ? 'put' : 'post',
             params: { draft },
             data: this.formData
           }).then(result => {
@@ -117,6 +117,35 @@ export default {
             })
             this.$router.push('/home/articles')
           })
+          // if (articleId) {
+          //   this.$axios({
+          // url:`/articles/${articleId}`
+          // method: 'put',
+          //     params: { draft },
+          //     data: this.formData
+
+          //   }).then(result => {
+          //     this.$message({
+          //       type: 'success',
+          //       message: '保存成功'
+          //     })
+          //     this.$router.push('/home/articles')
+          //   })
+          // } else {
+          //   //   console.log('效验通过')
+          //   this.$axios({
+          //     url: '/articles',
+          //     method: 'post',
+          //     params: { draft },
+          //     data: this.formData
+          //   }).then(result => {
+          //     this.$message({
+          //       type: 'success',
+          //       message: '保存成功'
+          //     })
+          //     this.$router.push('/home/articles')
+          //   })
+          // }
         }
       })
     }
