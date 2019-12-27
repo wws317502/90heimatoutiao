@@ -23,7 +23,7 @@
                   <el-radio :label='-1'>自动</el-radio>
               </el-radio-group>
           </el-form-item>
-          <cover-image :list='formData.cover.images'></cover-image>
+          <cover-image @selectTwoImg='receiveImg' :list='formData.cover.images'></cover-image>
           <el-form-item label='频道' prop='channel_id'>
               <el-select v-model="formData.channel_id">
                   <el-option
@@ -98,6 +98,15 @@ export default {
     // }
   },
   methods: {
+    receiveImg (url, index) {
+      // this.formData.cover.images[index] = url
+      this.formData.cover.images = this.formData.cover.images.map(function (item, i) {
+        if (index === i) {
+          return url
+        }
+        return item
+      })
+    },
     changeType () {
       // alert(this.formData.cover.type)
       if (this.formData.cover.type === 0 || this.formData.cover.type === -1) {
