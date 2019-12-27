@@ -20,6 +20,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   // console.log(error)
   let status = error.response.status
+  // let status = error.response.status
   let message = ''
   switch (status) {
     case 400:

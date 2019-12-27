@@ -5,7 +5,6 @@
           发布文章
       </template>
       </bread-crumb>
-      {{ formData }}
       <el-form ref="publishForm" :model='formData' :rules='publisRules' style="margin-left:50px" label-width='100px'>
           <el-form-item prop='title' label='标题'>
               <el-input v-model="formData.title" style="width:60%"></el-input>
@@ -70,7 +69,31 @@ export default {
       }
     }
   },
+  watch: {
+    $route: function (to, from) {
+      if (to.params.articleId) {
+
+      } else {
+        this.formData = {
+          title: '',
+          content: '',
+          cover: {
+            type: 0,
+            images: []
+          },
+          channel_id: null
+        }
+      }
+    }
+  },
   methods: {
+    getArticleById (articleId) {
+      this.$axios({
+        url: `/articles/${articleId}`
+      }).then(result => {
+        this.formData = result.data
+      })
+    },
     getChannels () {
       this.$axios({
         url: '/channels'
@@ -100,6 +123,8 @@ export default {
   },
   created () {
     this.getChannels()
+    let { articleId } = this.$route.params
+    articleId && this.getArticleById(articleId)
   }
 
 }

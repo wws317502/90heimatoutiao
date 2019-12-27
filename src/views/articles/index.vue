@@ -55,7 +55,7 @@
                   </div>
               </div>
               <div class="right">
-                  <span><i class="el-icon-edit"></i>修改</span>
+                  <span @click="toMaterial(item.id)"><i class="el-icon-edit"></i>修改</span>
                   <span @click="dalMaterial(item.id)"><i class="el-icon-delete"></i>删除</span>
               </div>
           </div>
@@ -136,6 +136,9 @@ export default {
   },
 
   methods: {
+    toMaterial (id) {
+      this.$router.push(`/home/publish/${id.toString()}`)
+    },
     dalMaterial (id) {
       this.$confirm('是否要删除文章').then(result => {
         this.$axios({
