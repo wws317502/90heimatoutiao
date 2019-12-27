@@ -5,6 +5,7 @@
           发布文章
       </template>
       </bread-crumb>
+      {{ formData }}
       <el-form ref="publishForm" :model='formData' :rules='publisRules' style="margin-left:50px" label-width='100px'>
           <el-form-item prop='title' label='标题'>
               <el-input v-model="formData.title" style="width:60%"></el-input>
@@ -18,14 +19,14 @@
           </el-form-item>
           <el-form-item label='封面' prop='cover'>
               <el-radio-group v-model="formData.cover.type">
-                  <el-radio label='1'>单图</el-radio>
-                  <el-radio label='3'>三图</el-radio>
-                  <el-radio label='0'>无图</el-radio>
-                  <el-radio label='-1'>自动</el-radio>
+                  <el-radio :label='1'>单图</el-radio>
+                  <el-radio :label='3'>三图</el-radio>
+                  <el-radio :label='0'>无图</el-radio>
+                  <el-radio :label='-1'>自动</el-radio>
               </el-radio-group>
           </el-form-item>
-          <el-form-item label='频道' prop='channels_id'>
-              <el-select v-model="formData.channels_id">
+          <el-form-item label='频道' prop='channel_id'>
+              <el-select v-model="formData.channel_id">
                   <el-option
                   v-for="item in channels"
                   :key="item.id"
@@ -35,8 +36,8 @@
               </el-select>
           </el-form-item>
           <el-form-item>
-              <el-button type='primary' @click="publishArticle">发布</el-button>
-              <el-button type='primary' @click="publishArticle">存入草稿</el-button>
+              <el-button type='primary' @click="publishArticle()">发布</el-button>
+              <el-button type='primary' @click="publishArticle(true)">存入草稿</el-button>
           </el-form-item>
 
       </el-form>
@@ -56,7 +57,7 @@ export default {
           type: 0,
           images: []
         },
-        channels_id: null
+        channel_id: null
       },
       publisRules: {
         title: [{ required: true, message: '文章标题不能为空' }, {
@@ -65,7 +66,7 @@ export default {
           message: '标题长度在5~30之间'
         }],
         content: [{ required: true, message: '文章内容不能为空' }],
-        channels_id: [{ required: true, message: '文章频道不能为空' }]
+        channel_id: [{ required: true, message: '文章频道不能为空' }]
       }
     }
   },
@@ -77,10 +78,22 @@ export default {
         this.channels = result.data.channels
       })
     },
-    publishArticle () {
+    publishArticle (draft) {
       this.$refs.publishForm.validate(isOK => {
         if (isOK) {
-          console.log('效验通过')
+        //   console.log('效验通过')
+          this.$axios({
+            url: '/articles',
+            method: 'post',
+            params: { draft },
+            data: this.formData
+          }).then(result => {
+            this.$message({
+              type: 'success',
+              message: '保存成功'
+            })
+            this.$router.push('/home/articles')
+          })
         }
       })
     }
