@@ -32,6 +32,9 @@ const routes = [
     }, {
       path: 'publish/:articleId', // 完整 相对
       component: () => import('../views/publish')
+    }, {
+      path: 'account', // 完整 相对
+      component: () => import('../views/account')
     }]
 
   }, {
