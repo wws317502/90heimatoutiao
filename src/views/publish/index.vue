@@ -100,12 +100,13 @@ export default {
   methods: {
     receiveImg (url, index) {
       // this.formData.cover.images[index] = url
-      this.formData.cover.images = this.formData.cover.images.map(function (item, i) {
-        if (index === i) {
-          return url
-        }
-        return item
-      })
+      // this.formData.cover.images = this.formData.cover.images.map(function (item, i) {
+      //   if (index === i) {
+      //     return url
+      //   }
+      //   return item
+      // })
+      this.formData.cover.images = this.formData.cover.images.map((item, i) => i === index ? url : item)
     },
     changeType () {
       // alert(this.formData.cover.type)
