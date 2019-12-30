@@ -30,6 +30,7 @@
  </template>
 
 <script>
+import evevntBus from '../../utils/eventBus'
 export default {
   data () {
     return {
@@ -65,6 +66,7 @@ export default {
       }).then(result => {
         this.loading = false
         this.formData.photo = result.data.photo
+        evevntBus.$emit('updateUserInfo')
       })
     },
     saveUserInfo () {
@@ -79,6 +81,7 @@ export default {
             message: '保存用户信息成功'
 
           })
+          evevntBus.$emit('updateUserInfo')
         })
       })
     },

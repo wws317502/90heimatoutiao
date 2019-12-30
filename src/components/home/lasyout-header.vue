@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import eventBus from '../../utils/eventBus'
 export default {
   data () {
     return {
@@ -36,18 +37,24 @@ export default {
   },
   created () {
     // let token = localStorage.getItem('user-token')
-    this.$axios({
-      url: '/user/profile'
-      // headers: {
-      //   //   headers参数
-      //   Authorization: `Bearer ${token}`
-      // }
-    }).then(result => {
-      this.userInfo = result.data
+    this.getUserInfo()
+    eventBus.$on('updateUserInfo', () => {
+      this.getUserInfo()
     })
   },
 
   methods: {
+    getUserInfo () {
+      this.$axios({
+        url: '/user/profile'
+      // headers: {
+      //   //   headers参数
+      //   Authorization: `Bearer ${token}`
+      // }
+      }).then(result => {
+        this.userInfo = result.data
+      })
+    },
     //   点击菜单项时触发
     clickMenu (command) {
       if (command === 'info') {
