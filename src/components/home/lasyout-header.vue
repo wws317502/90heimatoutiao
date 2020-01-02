@@ -1,7 +1,7 @@
 <template>
   <el-row class="layout-header" type="flex" align="middle">
   <el-col :span="12" class="left">
-      <i class="el-icon-s-fold"></i>
+      <i @click="collapseOrOpen" :class="{'el-icon-s-fold':!collapse,'el-icon-s-unfold':collapse}"></i>
         <span>江苏传智播客教育科技股份有限公司</span>
   </el-col>
   <el-col :span="12" class="right" >
@@ -31,6 +31,7 @@ import eventBus from '../../utils/eventBus'
 export default {
   data () {
     return {
+      collapse: false,
       userInfo: {}, // 定义一个用户对象
       defaultImg: require('../../assets/img/avatar.jpg') // 先将图片转化成了一个变量
     }
@@ -44,6 +45,10 @@ export default {
   },
 
   methods: {
+    collapseOrOpen () {
+      this.collapse = !this.collapse
+      eventBus.$emit('changeCollapse')
+    },
     getUserInfo () {
       this.$axios({
         url: '/user/profile'
