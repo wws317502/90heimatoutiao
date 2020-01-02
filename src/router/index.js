@@ -35,6 +35,9 @@ const routes = [
     }, {
       path: 'account', // 完整 相对
       component: () => import('../views/account')
+    }, {
+      path: 'picture',
+      component: () => import('../views/picture')
     }]
 
   }, {
